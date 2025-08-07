@@ -35,7 +35,7 @@ const Home = () => {
               }}
             >
               <div style={{ marginLeft: "30px" }}>
-                New Season <br />
+                New <br />
                 Arrivals
               </div>
             </div>
