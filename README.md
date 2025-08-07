@@ -30,3 +30,10 @@ This is a simple full-stack eCommerce admin panel and frontend built using:
 - ✅ Newly added items **can be updated or removed** by the Admin Panel
 
 ---
+## 🚀 Getting Started
+
+### 1. Clone the repo
+
+```bash
+git clone https://github.com/AmanTShekar/your-repo-name.git
+cd your-repo-name
