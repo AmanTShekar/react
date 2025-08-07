@@ -1,0 +1,115 @@
+/* Admin Panel Section Box */
+.admin-section {
+  margin: 40px 0;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+}
+
+/* Section Headings */
+.admin-section h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #2d3436;
+  margin-bottom: 25px;
+  text-align: left;
+  border-left: 5px solid #3498db;
+  padding-left: 12px;
+}
+
+/* Admin Tables */
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fcfcfc;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 1px solid #eaeaea;
+  font-size: 15px;
+}
+
+.admin-table th {
+  background-color: #f4f6f8;
+  color: #34495e;
+  font-weight: 600;
+}
+
+/* Form Inputs */
+.admin-table input,
+.admin-table select {
+  padding: 10px 12px;
+  border: 1px solid #dcdde1;
+  border-radius: 8px;
+  width: 100%;
+  font-size: 14px;
+  outline: none;
+  background-color: #fdfdfd;
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.admin-table input:focus,
+.admin-table select:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+/* Button Base */
+.admin-table button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  background-color: #3498db;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 4px;
+}
+
+/* Button Hover */
+.admin-table button:hover {
+  background-color: #2980b9;
+}
+
+/* Delete Button */
+.admin-table .delete-button {
+  background-color: #e74c3c;
+}
+
+.admin-table .delete-button:hover {
+  background-color: #c0392b;
+}
+
+/* Inline Form Styles */
+.inline-form {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.inline-form input,
+.inline-form select {
+  flex: 1;
+  min-width: 180px;
+}
+
+/* Responsive (optional) */
+@media (max-width: 768px) {
+  .inline-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

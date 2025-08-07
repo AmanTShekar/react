@@ -1,43 +1,90 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+// src/components/Navbar.jsx
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../redux/reducer/authSlice";
+import "./Navbar.css";
 
 const Navbar = () => {
-    const state = useSelector(state => state.handleCart)
-    return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-light py-3 sticky-top">
-            <div className="container">
-                <NavLink className="navbar-brand fw-bold fs-4 px-2" to="/"> React Ecommerce</NavLink>
-                <button className="navbar-toggler mx-2" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
+  const auth = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-                <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul className="navbar-nav m-auto my-2 text-center">
-                        <li className="nav-item">
-                            <NavLink className="nav-link" to="/">Home </NavLink>
-                        </li>
-                        <li className="nav-item">
-                            <NavLink className="nav-link" to="/product">Products</NavLink>
-                        </li>
-                        <li className="nav-item">
-                            <NavLink className="nav-link" to="/about">About</NavLink>
-                        </li>
-                        <li className="nav-item">
-                            <NavLink className="nav-link" to="/contact">Contact</NavLink>
-                        </li>
-                    </ul>
-                    <div className="buttons text-center">
-                        <NavLink to="/login" className="btn btn-outline-dark m-2"><i className="fa fa-sign-in-alt mr-1"></i> Login</NavLink>
-                        <NavLink to="/register" className="btn btn-outline-dark m-2"><i className="fa fa-user-plus mr-1"></i> Register</NavLink>
-                        <NavLink to="/cart" className="btn btn-outline-dark m-2"><i className="fa fa-cart-shopping mr-1"></i> Cart ({state.length}) </NavLink>
-                    </div>
+  const handleLogout = () => {
+    dispatch(logout());
+    localStorage.removeItem("user");
+    navigate("/login");
+  };
+
+  return (
+    <nav className="navbar">
+      <div className="navbar-container">
+        <div className="navbar-logo">
+          <Link to="/">🛍️ MyShop</Link>
+        </div>
+
+        <button
+          className="hamburger"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Toggle menu"
+        >
+          ☰
+        </button>
+
+        <ul className={`navbar-links ${mobileMenuOpen ? "open" : ""}`}>
+          <li><Link to="/" onClick={() => setMobileMenuOpen(false)}>Home</Link></li>
+          <li><Link to="/product" onClick={() => setMobileMenuOpen(false)}>Products</Link></li>
+          <li><Link to="/contact" onClick={() => setMobileMenuOpen(false)}>Contact</Link></li>
+          <li><Link to="/cart" onClick={() => setMobileMenuOpen(false)}>Cart</Link></li>
+
+          {!auth.isLoggedIn ? (
+            <li><Link to="/login" onClick={() => setMobileMenuOpen(false)}>Login</Link></li>
+          ) : (
+            <li className="user-dropdown">
+              <div
+                className="user-dropdown-toggle"
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+              >
+                👤 {auth.user?.name || "User"} ▾
+              </div>
+
+              {dropdownOpen && (
+                <div className="user-dropdown-menu">
+                  <div
+                    className="user-dropdown-item"
+                    onClick={() => {
+                      navigate("/profile");
+                      setDropdownOpen(false);
+                    }}
+                  >
+                    Profile
+                  </div>
+                  <div
+                    className="user-dropdown-item"
+                    onClick={() => {
+                      navigate("/orders");
+                      setDropdownOpen(false);
+                    }}
+                  >
+                    My Orders
+                  </div>
+                  <div className="user-dropdown-divider" />
+                  <div
+                    className="user-dropdown-item text-danger"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </div>
                 </div>
+              )}
+            </li>
+          )}
+        </ul>
+      </div>
+    </nav>
+  );
+};
 
-
-            </div>
-        </nav>
-    )
-}
-
-export default Navbar
+export default Navbar;

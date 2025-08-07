@@ -1,6 +1,11 @@
-import handleCart from './handleCart'
+// src/redux/reducer/index.js
 import { combineReducers } from "redux";
+import auth from "./authSlice";
+import handleCart from "./handleCart";
+
 const rootReducers = combineReducers({
-    handleCart,
-})
-export default rootReducers
+  auth,
+  handleCart,
+});
+
+export default rootReducers;

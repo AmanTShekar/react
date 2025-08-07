@@ -1,49 +1,125 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Footer, Navbar } from "../components";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { loginSuccess } from "../redux/reducer/authSlice";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
+
+  // ✅ Redirect if already logged in
+  useEffect(() => {
+    if (auth?.isLoggedIn) {
+      if (auth.userType === "admin") {
+        navigate("/admin");
+      } else {
+        navigate("/");
+      }
+    }
+  }, [auth, navigate]);
+
+  // ✅ Login handler
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await fetch(`http://localhost:5000/users?email=${email}&password=${password}`);
+      const data = await res.json();
+
+      if (data.length > 0) {
+        const user = data[0];
+        const payload = {
+          user,
+          userType: user.role, // "admin" or "user"
+        };
+
+        // ✅ Dispatch + save to localStorage
+        dispatch(loginSuccess(payload));
+        localStorage.setItem("auth", JSON.stringify({
+          isLoggedIn: true,
+          user,
+          userType: user.role,
+        }));
+
+        // ✅ Navigate based on role
+        navigate(user.role === "admin" ? "/admin" : "/");
+      } else {
+        alert("Invalid email or password");
+      }
+    } catch (err) {
+      console.error("Login error:", err);
+      alert("Something went wrong during login.");
+    }
+  };
+
   return (
-    <>
-      <Navbar />
-      <div className="container my-3 py-3">
-        <h1 className="text-center">Login</h1>
-        <hr />
-        <div class="row my-4 h-100">
-          <div className="col-md-4 col-lg-4 col-sm-8 mx-auto">
-            <form>
-              <div class="my-3">
-                <label for="display-4">Email address</label>
+    <div className="container my-5 py-5">
+      <h1 className="text-center mb-4 fw-bold">Login</h1>
+      <hr className="mb-4" />
+      <div className="row justify-content-center align-items-center">
+        <div className="col-md-6 col-lg-4 col-sm-10">
+          <div
+            style={{
+              background: "rgba(255, 255, 255, 0.15)",
+              backdropFilter: "blur(15px)",
+              borderRadius: "16px",
+              boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)",
+              padding: "35px",
+              border: "1px solid rgba(255, 255, 255, 0.18)",
+            }}
+          >
+            <form onSubmit={handleLogin}>
+              <div className="mb-3">
+                <label className="form-label fw-semibold">Email address</label>
                 <input
                   type="email"
-                  class="form-control"
-                  id="floatingInput"
-                  placeholder="name@example.com"
+                  className="form-control rounded-pill px-4 py-2"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="you@example.com"
+                  required
                 />
               </div>
-              <div class="my-3">
-                <label for="floatingPassword display-4">Password</label>
+
+              <div className="mb-4">
+                <label className="form-label fw-semibold">Password</label>
                 <input
                   type="password"
-                  class="form-control"
-                  id="floatingPassword"
-                  placeholder="Password"
+                  className="form-control rounded-pill px-4 py-2"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter password"
+                  required
                 />
               </div>
-              <div className="my-3">
-                <p>New Here? <Link to="/register" className="text-decoration-underline text-info">Register</Link> </p>
-              </div>
-              <div className="text-center">
-                <button class="my-2 mx-auto btn btn-dark" type="submit" disabled>
+
+              <div className="d-grid">
+                <button
+                  className="btn btn-dark btn-lg rounded-pill"
+                  type="submit"
+                >
                   Login
                 </button>
               </div>
             </form>
+
+            <p className="mt-3 text-center text-muted">
+              Don't have an account?{" "}
+              <span
+                style={{ cursor: "pointer", color: "#0d6efd" }}
+                onClick={() => navigate("/register")}
+              >
+                Register
+              </span>
+            </p>
           </div>
         </div>
       </div>
-      <Footer />
-    </>
+    </div>
   );
 };
 

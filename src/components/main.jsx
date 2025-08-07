@@ -3,22 +3,41 @@ import React from "react";
 const Home = () => {
   return (
     <>
+      {/* Google Font: Montserrat */}
+      <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap"
+        rel="stylesheet"
+      />
+
       <div className="hero border-1 pb-3">
         <div className="card bg-dark text-white border-0 mx-3">
           <img
             className="card-img img-fluid"
             src="./assets/main.png.jpg"
             alt="Card"
-            height={500}
+            style={{
+              height: "500px",
+              objectFit: "cover",
+              filter: "brightness(65%)",
+            }}
           />
           <div className="card-img-overlay d-flex align-items-center">
-            <div className="container">
-              <h5 className="card-title fs-1 text fw-lighter">New Season Arrivals</h5>
-              <p className="card-text fs-5 d-none d-sm-block ">
-                This is a wider card with supporting text below as a natural
-                lead-in to additional content. This content is a little bit
-                longer.
-              </p>
+            {/* LEFT-ALIGNED TEXT */}
+            <div
+              style={{
+                fontFamily: "'Montserrat', sans-serif",
+                fontSize: "4rem",
+                fontWeight: "700",
+                lineHeight: "1.1",
+                color: "#ffffff",
+                textAlign: "left",
+                maxWidth: "100%",
+              }}
+            >
+              <div style={{ marginLeft: "30px" }}>
+                New Season <br />
+                Arrivals
+              </div>
             </div>
           </div>
         </div>

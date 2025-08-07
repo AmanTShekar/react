@@ -1,22 +1,54 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
-const Footer = () => {
+const Offers = () => {
+  const [offers, setOffers] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/offers") // ← use 5000 instead of 3000
+      .then((res) => {
+        setOffers(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch offers:", err);
+        setLoading(false);
+      });
+  }, []);
+
   return (
-    <>
-      <footer className="mb-0 text-center">
-        <div className="d-flex align-items-center justify-content-center pb-5">
-          <div className="col-md-6">
-            <p className="mb-3 mb-md-0">Made with ❤️ by {" "}
-              <a  href="https://sahibsingh.dev" className="text-decoration-underline text-dark fs-5" target="_blank" rel="noreferrer">Sahib Singh</a>
-            </p>
-            <a className="text-dark fs-4" href="https://github.com/ssahibsingh" target="_blank" rel="noreferrer">
-              <i className="fa fa-github"></i>
-            </a>
-          </div>
+    <section className="text-center my-5">
+      <h1 className="mb-4">🔥 Current Offers</h1>
+
+      <div className="d-flex align-items-center justify-content-center pb-5">
+        <div className="col-md-8">
+          {loading ? (
+            <p>Loading offers...</p>
+          ) : offers.length === 0 ? (
+            <p>No offers available right now.</p>
+          ) : (
+            offers.map((offer) => (
+              <div
+                key={offer.id}
+                className="card mb-4 shadow-sm border-0 rounded-4"
+                style={{ background: "#f8f9fa" }}
+              >
+                <div className="card-body text-start">
+                  <h5 className="card-title fw-bold">{offer.title}</h5>
+                  <p className="card-text text-muted">{offer.description}</p>
+                  <span className="badge bg-success rounded-pill">
+                    {offer.discount}% OFF
+                  </span>
+                </div>
+              </div>
+            ))
+          )}
         </div>
-      </footer>
-    </>
+      </div>
+    </section>
   );
 };
 
-export default Footer;
+export default Offers;
