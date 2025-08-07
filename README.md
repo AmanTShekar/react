@@ -34,6 +34,12 @@ This is a simple full-stack eCommerce admin panel and frontend built using:
 
 ### 1. Clone the repo
 
-```bash
-git clone https://github.com/AmanTShekar/your-repo-name.git
-cd your-repo-name
+### bash
+git clone https://github.com/AmanTShekar/react.git
+cd react
+
+### 2.To Run
+npm install
+npx json-server --watch db.json --port 5000
+npm run dev
+
