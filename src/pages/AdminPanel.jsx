@@ -1,6 +1,5 @@
 // src/pages/AdminPanel.jsx
 import React from "react";
-import AdminNavbar from "../components/admin/AdminNavbar";
 import ProductManager from "../components/admin/ProductManager";
 import CategoryManager from "../components/admin/CategoryManager";
 import OfferManager from "../components/admin/OfferManager";
