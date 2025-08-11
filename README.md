@@ -46,3 +46,11 @@ npx json-server --watch db.json --port 5000
 npm start
 
 
+### USERS -
+
+      "username": "admin@123",
+      "password": "admin123",
+      "username": "john@1",
+      "password": "john123",
+
+
