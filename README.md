@@ -65,8 +65,12 @@ react-fastapi-ecommerce/
 
 ## ⚙️ Getting Started
 
-1. Clone the repo:  
-git clone https://github.com/YourUsername/react-fastapi-ecommerce.git  
+## 🚀 Getting Started
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/YourUsername/react-fastapi-ecommerce.git
 cd react-fastapi-ecommerce
 
 2. Backend Setup (FastAPI):  
