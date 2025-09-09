@@ -67,41 +67,51 @@ react-fastapi-ecommerce/
 
 ## 🚀 Getting Started
 
-### 1. Clone the Repository
-
-```bash
+# Clone the repository
 git clone https://github.com/YourUsername/react-fastapi-ecommerce.git
 cd react-fastapi-ecommerce
 
-2. Backend Setup (FastAPI):  
-cd backend  
-python -m venv venv          # optional virtual environment  
-source venv/bin/activate      # Linux/macOS  
-venv\Scripts\activate         # Windows  
-pip install -r requirements.txt  
-uvicorn main:app --reload  
-Backend runs at http://127.0.0.1:8000  
-API docs: http://127.0.0.1:8000/docs
+# Create a virtual environment (optional but recommended)
+python -m venv venv
+source venv/bin/activate   # On macOS/Linux
+venv\Scripts\activate      # On Windows
 
-3. Frontend Setup (React + Vite):  
-cd frontend  
-npm install  
-npm run dev  
-Frontend runs at http://localhost:5173  
-Ensure Axios or BASE_URL points to the FastAPI backend
+# Install backend dependencies
+cd backend
+pip install -r requirements.txt
 
-## 👥 Sample Users
+# Setup environment variables
+# Create a `.env` file in the backend directory with the following:
+# FLASK_SECRET_KEY=your_secret_key
+# SCRAPER_API_KEY=your_scraperapi_key
+# GOOGLE_APPLICATION_CREDENTIALS=google-credentials.json
+# Notes:
+# - google-credentials.json → Download from Google Cloud Console and place in the project root
+# - SCRAPER_API_KEY → Get a free ScraperAPI key: https://www.scraperapi.com/
 
-Admin:  
-{"username": "admin@123", "password": "admin123"}  
+# Run backend locally
+uvicorn main:app --reload
+# Backend runs at http://127.0.0.1:8000
+# API docs: http://127.0.0.1:8000/docs
 
-Customer:  
-{"username": "john@1", "password": "john123"}  
+# Setup frontend
+cd ../frontend
+npm install
+npm run dev
+# Frontend runs at http://localhost:5173
+# Ensure Axios or BASE_URL points to the FastAPI backend
 
-## 🌐 Live Site
-
-Local: http://localhost:5173  
-Backend API: http://127.0.0.1:8000  
+# Sample Users
+# Admin:
+# {
+#   "username": "admin@123",
+#   "password": "admin123"
+# }
+# Customer:
+# {
+#   "username": "john@1",
+#   "password": "john123"
+# }
 
 ## 💡 Additional Notes
 
